@@ -4,21 +4,21 @@ cask "soapbridge" do
 
   on_macos do
     on_arm do
-      sha256 "67878305f4409a31435491f783d63d14ff2c0635f35ec64b27edb431357f72c2"
+      sha256 "2d6de4529e864c8f4c1bcd173a9ec19fc62f789e8e6ceaa57953b320531d61ce"
       url "https://github.com/harshhh28/soapbridge/releases/download/v#{version}/soapbridge_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "997cad781d9b333db12515dc19d71fcdb2c449a405d2193cc1bf1d5e7d5fee2f"
+      sha256 "076bce67ba66c1daeb9520e277d8b4bf2d94b6375e088a27ad8c0d8a23a8da61"
       url "https://github.com/harshhh28/soapbridge/releases/download/v#{version}/soapbridge_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "dc11f3d76465d287bba8b4221cd5012eec1b8a40859e156be9490e3b09a863b2"
+      sha256 "c0a5e8f9f08e766d4fc3b3e357708ef4157c4282e2dfe699d54bf340b0da328d"
       url "https://github.com/harshhh28/soapbridge/releases/download/v#{version}/soapbridge_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "5ece6dd8c2c553d8324881305228ae2eff017ed09390b88b4d831d88ab2ad9d4"
+      sha256 "81f4e75aff8bbba96a13ca94269c5966b64d0839538616eb0601f7cc5f4ffcaa"
       url "https://github.com/harshhh28/soapbridge/releases/download/v#{version}/soapbridge_linux_amd64.tar.gz"
     end
   end
@@ -32,6 +32,12 @@ cask "soapbridge" do
   end
 
   binary "soapbridge"
+
+  postflight do
+    if OS.mac?
+      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/soapbridge"]
+    end
+  end
 
   # No zap stanza required
 end
